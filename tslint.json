@@ -1,0 +1,16 @@
+{
+    "extends": [
+        "tslint:recommended",
+        "tslint-react",
+        "tslint-config-prettier"
+    ],
+    "rulesDirectory": [
+        "tslint-plugin-prettier",
+        "tsconfig.json"
+    ],
+    "rules": {
+        "prettier": true,
+        "interface-name": false,
+        "semicolon": true
+    }
+}
