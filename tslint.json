@@ -1,16 +1,17 @@
 {
     "extends": [
         "tslint:recommended",
-        "tslint-react",
-        "tslint-config-prettier"
+        "tslint-react"
     ],
     "rulesDirectory": [
-        "tslint-plugin-prettier",
         "tsconfig.json"
     ],
     "rules": {
-        "prettier": true,
+        "prettier": false,
         "interface-name": false,
-        "semicolon": true
+        "semicolon": true,
+        "trailing-comma": false,
+        "arrow-parens": true,
+        "eofline": true
     }
 }
