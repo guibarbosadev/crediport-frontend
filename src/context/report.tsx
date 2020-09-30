@@ -1,37 +1,46 @@
 import React, { createContext, useCallback, useMemo, useState, useContext } from 'react';
-import { Report } from '../types/report';
+import { Report, ReportWithId } from '../types/report';
 import axios from 'axios';
 import { API_URL } from '../config';
-import { message } from 'antd';
 
 export interface ReportInterface {
-    reports: Report[];
-    getReports: () => void;
+    reports: ReportWithId[];
+    getReports: () => Promise<void>;
+    addReport: (data: Report) => Promise<void>;
 }
 
 const ReportContext = createContext<ReportInterface>({
     reports: [],
-    getReports: () => undefined
+    getReports: () => Promise.resolve(),
+    addReport: () => Promise.resolve()
 });
 
 export const ReportProvider: React.FC = ({ children }) => {
-    const [reports, setReports] = useState<Report[]>([]);
-    const getReports = useCallback(() => {
-        (async () => {
-            try {
-                const URL = `${API_URL}/report`;
-                const { data } = await axios.get<Report[]>(URL);
+    const [reports, setReports] = useState<ReportWithId[]>([]);
+    const getReports = useCallback(async () => {
+        try {
+            const URL = `${API_URL}/report`;
+            const { data } = await axios.get<ReportWithId[]>(URL);
 
-                setReports(data);
-            } catch {
-                message.error('Oops, could not fetch transactions');
-            }
-        })();
+            setReports(data);
+        } catch {
+            // TODO show some error feedback
+        }
+    }, []);
+
+    const addReport = useCallback(async (data: Report) => {
+        try {
+            const URL = `${API_URL}/report`;
+            await axios.post(URL, data);
+        } catch {
+            // TODO show some error feedback
+        }
     }, []);
 
     const context = useMemo<ReportInterface>(() => ({
         reports,
-        getReports
+        getReports,
+        addReport
     }), [reports]);
 
     return (

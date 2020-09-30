@@ -12,6 +12,7 @@
         "semicolon": true,
         "trailing-comma": false,
         "arrow-parens": true,
-        "eofline": true
+        "eofline": true,
+        "jsx-no-lambda": false
     }
 }
