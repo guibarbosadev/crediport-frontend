@@ -1,76 +1,30 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { useReport } from '@Context/report';
 import { Report } from '@Types/report';
-import { format } from 'date-fns';
 import { message } from 'antd';
-
-const today = format(new Date(), 'yyyy-MM-dd');
+import { AddReportBar } from '@Components/AddReportBar';
 
 export const Home: React.FC = () => {
     const { reports, getReports, addReport } = useReport();
-    const [reportValue, setReportValue] = useState<string>('');
-    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-    const [values, setValues] = useState<Report>({
-        category: '',
-        date: today,
-        name: '',
-        value: 0
-    });
+    const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         getReports();
     }, []);
 
-    const handleSubmit = useCallback(
-        async (e: React.FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-            const hideLoading = message.loading('Carregando', 0);
-            setIsSubmitting(true);
-            await addReport({
-                ...values,
-                value: Number(reportValue)
-            });
-            setIsSubmitting(false);
-            hideLoading();
-            getReports();
-        },
-        [reports, values, reportValue]
-    );
+    const handleSubmit = React.useCallback(async (values: Report) => {
+        const hideLoading = message.loading('Carregando', 0);
+        console.log('handleSubmit: ', handleSubmit);
+        setIsSubmitting(true);
+        await addReport({ ...values });
+        setIsSubmitting(false);
+        hideLoading();
+        getReports();
+    }, []);
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <input
-                    placeholder="Batata frita"
-                    value={values.name}
-                    onChange={(e) =>
-                        setValues({ ...values, name: e.target.value })
-                    }
-                />
-                <input
-                    placeholder="Guloseima"
-                    value={values.category}
-                    onChange={(e) =>
-                        setValues({ ...values, category: e.target.value })
-                    }
-                />
-                <input
-                    placeholder={today}
-                    value={values.date}
-                    onChange={(e) =>
-                        setValues({ ...values, date: e.target.value })
-                    }
-                />
-                <input
-                    placeholder="5.00"
-                    value={reportValue}
-                    onChange={(e) => setReportValue(e.target.value)}
-                />
-                <button type="submit" disabled={isSubmitting}>
-                    Adicionar
-                </button>
-            </form>
-
+            <AddReportBar handleSubmit={handleSubmit} disabled={isSubmitting} />
             {reports.map((report) => (
                 <div key={report._id}>{report.name}</div>
             ))}

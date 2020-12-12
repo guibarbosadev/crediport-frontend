@@ -7,7 +7,11 @@ import React, {
 } from 'react';
 import { Report, ReportWithId } from '@Types/report';
 import axios from 'axios';
+import parse from 'date-fns/parse';
+import format from 'date-fns/format';
+import { notification } from 'antd';
 import { API_URL } from '@Config';
+import { parseCurrency } from '@Helpers/';
 
 export interface ReportInterface {
     reports: ReportWithId[];
@@ -34,12 +38,18 @@ export const ReportProvider: React.FC = ({ children }) => {
         }
     }, []);
 
-    const addReport = useCallback(async (data: Report) => {
+    const addReport = useCallback(async (report: Report) => {
         try {
+            const parsedDate = parse(report.date, 'dd/MM/yyyy', new Date());
+            const date = format(parsedDate, 'yyyy-MM-dd');
+            const value = parseCurrency(report.value);
+            const parsedReport: Report = { ...report, date, value };
             const URL = `${API_URL}/report`;
-            await axios.post(URL, data);
-        } catch {
-            // TODO show some error feedback
+
+            await axios.post(URL, parsedReport);
+        } catch (error) {
+            console.log('error: ', error, report);
+            notification.error({ message: 'Não foi possível lançar o gasto.' });
         }
     }, []);
 

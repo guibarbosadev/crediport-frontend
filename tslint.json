@@ -10,6 +10,7 @@
         "eofline": true,
         "jsx-no-lambda": false,
         "newline-before-return": true,
-        "no-any": false
+        "no-any": false,
+        "no-console": false
     }
 }

@@ -23,7 +23,10 @@
             "@Pages/*": ["pages/*"],
             "@Public/*": ["public/*"],
             "@Types/*": ["src/types/*"],
-            "@Config": ["src/config.ts"]
+            "@Helpers/*": ["src/helpers/*"],
+            "@Helpers": ["src/helpers/index.ts"],
+            "@Config": ["src/config.ts"],
+            "@Theme": ["src/theme.ts"]
         }
     },
     "exclude": ["node_modules"],
