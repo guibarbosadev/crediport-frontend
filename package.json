@@ -7,11 +7,11 @@
         "build": "next build",
         "start": "next start",
         "tslint-check": "tslint-config-prettier-check ./tslint.json",
-        "lint": "tslint -c tslint.json src/**/*.{ts,tsx} --fix --format verbose"
+        "prettier": "prettier --write **/*.{js,tsx,json,scss,ts}"
     },
     "husky": {
         "hooks": {
-            "pre-commit": "yarn lint"
+            "pre-commit": "yarn prettier"
         }
     },
     "dependencies": {

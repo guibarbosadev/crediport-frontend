@@ -1,11 +1,6 @@
 {
-    "extends": [
-        "tslint:recommended",
-        "tslint-react"
-    ],
-    "rulesDirectory": [
-        "tsconfig.json"
-    ],
+    "extends": ["tslint:recommended", "tslint-react"],
+    "rulesDirectory": ["tsconfig.json"],
     "rules": {
         "prettier": false,
         "interface-name": false,
@@ -13,6 +8,8 @@
         "trailing-comma": false,
         "arrow-parens": true,
         "eofline": true,
-        "jsx-no-lambda": false
+        "jsx-no-lambda": false,
+        "newline-before-return": true,
+        "no-any": false
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { ReportProvider } from '../src/context/report';
-import { Home } from './home';
+import { ReportProvider } from '@Context/report';
+import { Home } from '@Pages/home';
 
 const App: NextPage = () => {
     return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useReport } from '../src/context/report';
-import { Report } from '../src/types/report';
+import { useReport } from '@Context/report';
+import { Report } from '@Types/report';
 import { format } from 'date-fns';
 import { message } from 'antd';
 

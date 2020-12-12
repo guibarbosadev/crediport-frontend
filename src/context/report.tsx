@@ -1,7 +1,13 @@
-import React, { createContext, useCallback, useMemo, useState, useContext } from 'react';
-import { Report, ReportWithId } from '../types/report';
+import React, {
+    createContext,
+    useCallback,
+    useMemo,
+    useState,
+    useContext
+} from 'react';
+import { Report, ReportWithId } from '@Types/report';
 import axios from 'axios';
-import { API_URL } from '../config';
+import { API_URL } from '@Config';
 
 export interface ReportInterface {
     reports: ReportWithId[];
@@ -37,11 +43,14 @@ export const ReportProvider: React.FC = ({ children }) => {
         }
     }, []);
 
-    const context = useMemo<ReportInterface>(() => ({
-        reports,
-        getReports,
-        addReport
-    }), [reports]);
+    const context = useMemo<ReportInterface>(
+        () => ({
+            reports,
+            getReports,
+            addReport
+        }),
+        [reports]
+    );
 
     return (
         <ReportContext.Provider value={context}>
