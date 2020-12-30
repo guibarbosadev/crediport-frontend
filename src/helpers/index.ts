@@ -1,7 +1,7 @@
 export function onlyNumbers(text = '') {
-    const withComma = text.replace(',', '.');
-    const onlyDigits = withComma.replace(/\D/g, '');
-    const parsedText = Number(onlyDigits);
+    const withDot = text.replace(',', '.');
+    const onlyDigits = withDot.replace(/\D/g, '');
+    const parsedText = Number(Number(onlyDigits).toFixed(2));
 
     return parsedText;
 }
@@ -22,11 +22,8 @@ export function currencyMask(amount: string | number) {
 }
 
 export function parseCurrency(amount: string) {
-    const withDot = amount.replace(',', '.');
-    const onlyDigits = onlyNumbers(withDot);
+    const onlyDigits = onlyNumbers(amount);
     const parsedCurrency = Number(onlyDigits.toFixed(2));
-
-    console.log('bla');
 
     return parsedCurrency;
 }
